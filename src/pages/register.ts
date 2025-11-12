@@ -9,7 +9,7 @@ form.addEventListener('submit', async (e) => {
 
     const password = String(fd.get('password') ?? '');
     if (password.length < 8) {
-        return;
+        return; // Remember! Add lateer
     }
 
     const name = String(fd.get('name') ?? '');
@@ -27,5 +27,7 @@ form.addEventListener('submit', async (e) => {
         });
 
         window.location.href = 'login.html';
-    } catch (err) {}
+    } catch (err) {
+        // Remember! Add later
+    }
 });

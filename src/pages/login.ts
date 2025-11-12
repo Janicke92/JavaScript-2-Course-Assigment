@@ -1,22 +1,5 @@
-import { AUTH_URL } from '../api/config';
-
-const AUTH_STORAGE_KEY = 'pp_auth';
-
-type LoginResponse = {
-    accessToken: string;
-    name?: string;
-    email?: string;
-};
-
-type AuthData = {
-    accessToken: string;
-    email: string;
-    name?: string;
-};
-
-function saveAuthenticatedUserDataToLocalStorage(authData: AuthData) {
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
-}
+import { loginExistingUser } from '../api/authService';
+import { saveAuthenticatedUser } from '../storage';
 
 const form = document.querySelector<HTMLFormElement>('#login-form');
 
@@ -34,47 +17,14 @@ form?.addEventListener('submit', async (event) => {
     }
 
     try {
-        const data: LoginResponse = await sendLoginDetailsToAPI(
-            email,
-            password
-        );
-
-        if (!data?.accessToken) return;
-
-        saveAuthenticatedUserDataToLocalStorage({
+        const data = await loginExistingUser(email, password);
+        saveAuthenticatedUser({
             accessToken: data.accessToken,
-            email,
+            email: data.email,
             name: data.name,
         });
-
-        window.location.href = 'posts.html';
+        window.location.href = '../../posts.html';
     } catch (err) {
         // Remember! Add later!
     }
 });
-
-async function sendLoginDetailsToAPI(
-    email: string,
-    password: string
-): Promise<LoginResponse> {
-    const res = await fetch(`${AUTH_URL}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-    });
-
-    const json = await res.json().catch(() => null);
-
-    if (!res.ok) {
-        const msg =
-            json?.errors?.[0]?.message ||
-            json?.message ||
-            `Login failed: ${res.status}`;
-        throw new Error(msg);
-    }
-
-    return (json?.data ?? {}) as LoginResponse;
-}
