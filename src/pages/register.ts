@@ -9,7 +9,7 @@ form.addEventListener('submit', async (e) => {
 
     const password = String(fd.get('password') ?? '');
     if (password.length < 8) {
-        return; // Remember! Add lateer
+        return; // Remember! Add later
     }
 
     const name = String(fd.get('name') ?? '');

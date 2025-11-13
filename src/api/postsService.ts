@@ -1,3 +1,4 @@
+import { getAccessTokenFromLocalStorage } from '../storage';
 import { SOCIAL_URL } from './config';
 
 // Remember! move API key to localStorage before deployment
@@ -98,4 +99,92 @@ export async function getPostById(id: string, token: string): Promise<Post> {
 
     const data = await response.json();
     return data.data;
+}
+
+export async function getPostsByProfile(name: string) {
+    const token = getAccessTokenFromLocalStorage();
+    if (!token) {
+        throw new Error('Missing access token');
+    }
+
+    const res = await fetch(
+        `${SOCIAL_URL}/profiles/${name}/posts?_author=true`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+                'X-Noroff-API-Key': STATIC_API_KEY,
+            },
+        }
+    );
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+        const msg =
+            json?.errors?.[0]?.message ||
+            json?.message ||
+            `Get posts failed: ${res.status}`;
+
+        throw new Error(msg);
+    }
+
+    return json.data;
+}
+
+export async function deleteUserPost(id: string, token: string) {
+    const res = await fetch(`${SOCIAL_URL}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'X-Noroff-API-Key': STATIC_API_KEY,
+        },
+    });
+
+    if (!res.ok) {
+        let message = `Delete failed: ${res.status}`;
+
+        try {
+            const json = await res.json();
+            message = json?.errors?.[0]?.message || json?.message || message;
+        } catch {}
+
+        throw new Error(message);
+    }
+
+    return;
+}
+
+export async function updateUserPost(
+    id: string,
+    title: string,
+    body: string,
+    mediaUrl: string,
+    token: string
+) {
+    const res = await fetch(`${SOCIAL_URL}/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            'X-Noroff-API-Key': STATIC_API_KEY,
+        },
+        body: JSON.stringify({
+            title,
+            body,
+            media: { url: mediaUrl, alt: 'updated image' },
+        }),
+    });
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+        const message =
+            json?.errors?.[0]?.message ||
+            json?.message ||
+            `Update failed: ${res.status}`;
+        throw new Error(message);
+    }
+
+    return json.data;
 }

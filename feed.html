@@ -6,41 +6,51 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Pet Palace</h1>
-        <h2>Feed</h2>
-        <p id="welcome"></p>
-        <form id="create-post-form">
-            <div>
-                <label for="title">Title</label>
-                <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    placeholder="Post title"
-                    required
-                />
-            </div>
+        <header>
+            <a href="/profile.html">Profile</a>
+        </header>
+        <main>
+            <h1>Pet Palace</h1>
+            <h2>Feed</h2>
+            <p id="welcome"></p>
+            <form id="create-post-form">
+                <div>
+                    <label for="title">Title</label>
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        placeholder="Post title"
+                        required
+                    />
+                </div>
 
-            <div>
-                <label for="mediaUrl">Image URL</label>
-                <input
-                    id="mediaUrl"
-                    name="mediaUrl"
-                    type="url"
-                    placeholder="https://..."
-                    required
-                />
-            </div>
+                <div>
+                    <label for="mediaUrl">Image URL</label>
+                    <input
+                        id="mediaUrl"
+                        name="mediaUrl"
+                        type="url"
+                        placeholder="https://..."
+                        required
+                    />
+                </div>
 
-            <div>
-                <label for="body">Body</label>
-                <textarea id="body" name="body" rows="4" required></textarea>
-            </div>
+                <div>
+                    <label for="body">Body</label>
+                    <textarea
+                        id="body"
+                        name="body"
+                        rows="4"
+                        required
+                    ></textarea>
+                </div>
 
-            <button type="submit">Create post</button>
-        </form>
+                <button type="submit">Create post</button>
+            </form>
 
-        <section id="feed"></section>
+            <section id="feed"></section>
+        </main>
 
         <script type="module" src="/src/pages/feed.ts"></script>
     </body>

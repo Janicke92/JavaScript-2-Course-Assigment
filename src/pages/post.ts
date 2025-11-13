@@ -1,5 +1,8 @@
-import { getPostById } from '../api/postsService';
-import { getAccessTokenFromLocalStorage } from '../storage';
+import { getPostById, deleteUserPost } from '../api/postsService';
+import {
+    getAccessTokenFromLocalStorage,
+    getUserFromLocalStorage,
+} from '../storage';
 
 const params = new URLSearchParams(window.location.search);
 const postId = params.get('id');
@@ -17,8 +20,6 @@ if (!postId) {
     }
     throw new Error('Missing post id in URL');
 }
-
-console.log('Post ID from URL:', postId);
 
 async function renderSinglePost() {
     if (!postContainer || !titleElement) return;
@@ -54,10 +55,54 @@ async function renderSinglePost() {
                     : ''
             }
         `;
+
+        const actions = document.querySelector<HTMLElement>('#post-actions');
+        const user = getUserFromLocalStorage();
+
+        if (actions && user) {
+            const loggedInName = user.name ?? user.email.split('@')[0];
+
+            if (post.author?.name === loggedInName) {
+                actions.style.display = 'block';
+            } else {
+                actions.style.display = 'none';
+            }
+        }
     } catch (error) {
         console.error(error);
         postContainer.innerHTML = '<p>Could not load post.</p>';
     }
+}
+
+const deleteBtn = document.querySelector<HTMLButtonElement>('#delete-post-btn');
+
+if (deleteBtn && postId) {
+    deleteBtn.addEventListener('click', async () => {
+        const confirmed = confirm('Are you sure you want to delete this post?');
+        if (!confirmed) return;
+
+        const token = getAccessTokenFromLocalStorage();
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            await deleteUserPost(postId, token);
+            window.location.href = 'profile.html';
+        } catch (error) {
+            console.error(error);
+            alert('Could not delete the post.');
+        }
+    });
+}
+
+const editBtn = document.querySelector<HTMLButtonElement>('#edit-post-btn');
+
+if (editBtn && postId) {
+    editBtn.addEventListener('click', () => {
+        window.location.href = `edit.html?id=${postId}`;
+    });
 }
 
 renderSinglePost();

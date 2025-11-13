@@ -6,8 +6,19 @@
         <title>Document</title>
     </head>
     <body>
-        <h1 id="post-title"></h1>
-        <main id="single-post"></main>
+        <header>
+            <a href="/profile.html">Profile</a>
+        </header>
+        <main>
+            <div>
+                <h1 id="post-title"></h1>
+                <section id="single-post"></section>
+            </div>
+            <div id="post-actions">
+                <button id="edit-post-btn">Edit post</button>
+                <button id="delete-post-btn">Delete post</button>
+            </div>
+        </main>
 
         <script type="module" src="/src/pages/post.ts"></script>
     </body>

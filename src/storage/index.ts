@@ -20,3 +20,20 @@ export function getAccessTokenFromLocalStorage(): string | null {
         return null;
     }
 }
+
+export function getUserFromLocalStorage(): AuthData | null {
+    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (!raw) return null;
+
+    try {
+        const data = JSON.parse(raw) as AuthData;
+
+        if (!data.email || !data.accessToken) {
+            return null;
+        }
+
+        return data;
+    } catch {
+        return null;
+    }
+}
