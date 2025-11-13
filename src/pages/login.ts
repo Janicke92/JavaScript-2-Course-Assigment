@@ -23,7 +23,7 @@ form?.addEventListener('submit', async (event) => {
             email: data.email,
             name: data.name,
         });
-        window.location.href = '../../posts.html';
+        window.location.href = '../../feed.html';
     } catch (err) {
         // Remember! Add later!
     }

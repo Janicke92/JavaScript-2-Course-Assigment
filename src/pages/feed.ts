@@ -1,5 +1,8 @@
 import { createNewPost } from '../api/postsService';
 import { getAccessTokenFromLocalStorage } from '../storage';
+import { getAllPosts } from '../api/postsService';
+import type { Post } from '../api/postsService';
+import { PostCard } from '../components/PostCard';
 
 const storedUserData = localStorage.getItem('petpalace_auth');
 if (!storedUserData) {
@@ -23,7 +26,7 @@ createPostForm?.addEventListener('submit', async (e) => {
         ?.value.trim();
 
     if (!title || !mediaUrl || !body) {
-        // Remember! Show vilidation message
+        // Remember! Show validation message
         return;
     }
 
@@ -34,9 +37,34 @@ createPostForm?.addEventListener('submit', async (e) => {
     }
 
     try {
-        const newPost = await createNewPost(title, body, mediaUrl, token);
+        await createNewPost(title, body, mediaUrl, token);
+        createPostForm?.reset();
         // Remember! render post feed;
     } catch (err) {
         console.error('Error creating post:', err);
     }
 });
+
+async function renderPostsFeed() {
+    const feed = document.querySelector<HTMLElement>('#feed');
+    if (!feed) return;
+
+    const token = getAccessTokenFromLocalStorage();
+    if (!token) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    feed.innerHTML = '<p>Loading posts...</p>';
+
+    try {
+        const posts = await getAllPosts(token);
+
+        feed.innerHTML = posts.map((p: Post) => PostCard(p)).join('');
+    } catch (error) {
+        console.error(error);
+        feed.innerHTML = '<p>Unable to get feed.</p>';
+    }
+}
+
+renderPostsFeed();

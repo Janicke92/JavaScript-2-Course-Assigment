@@ -4,13 +4,19 @@ import { SOCIAL_URL } from './config';
 const STATIC_API_KEY = 'e2a86d95-9023-4b1c-8677-8337058737d2';
 
 type Media = { url: string; alt?: string };
-type Post = {
+
+export type Post = {
     id: number;
     title: string;
     body: string;
     media?: Media;
     tags?: string[];
     created?: string;
+    author?: {
+        name?: string;
+        email?: string;
+        avatar?: string | null;
+    };
 };
 
 /**
@@ -41,7 +47,7 @@ export async function createNewPost(
         body: JSON.stringify({
             title,
             body,
-            media: { url: mediaUrl, alt: 'user-posted image' },
+            media: { url: mediaUrl, alt: 'user image' },
         }),
     });
 
@@ -54,4 +60,42 @@ export async function createNewPost(
         throw new Error(msg);
     }
     return json.data;
+}
+
+export async function getAllPosts(token: string) {
+    const response = await fetch(
+        'https://v2.api.noroff.dev/social/posts?_author=true',
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'X-Noroff-API-Key': STATIC_API_KEY,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getPostById(id: string, token: string): Promise<Post> {
+    const response = await fetch(
+        `${SOCIAL_URL}/posts/${id}?_author=true&_comments=true&_reactions=true`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'X-Noroff-API-Key': STATIC_API_KEY,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch post');
+    }
+
+    const data = await response.json();
+    return data.data;
 }
