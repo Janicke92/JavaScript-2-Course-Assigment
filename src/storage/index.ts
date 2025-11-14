@@ -6,6 +6,10 @@ export type AuthData = {
     name?: string;
 };
 
+export function getApiKeyFromLocalStorage(): string | null {
+    return localStorage.getItem('apiKey');
+}
+
 export function saveAuthenticatedUser(auth: AuthData) {
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(auth));
 }

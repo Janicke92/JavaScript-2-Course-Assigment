@@ -1,18 +1,21 @@
 import { SOCIAL_URL } from './config';
-import { getAccessTokenFromLocalStorage } from '../storage';
-
-const STATIC_API_KEY = 'e2a86d95-9023-4b1c-8677-8337058737d2';
+import {
+    getAccessTokenFromLocalStorage,
+    getApiKeyFromLocalStorage,
+} from '../storage';
 
 export async function followProfile(name: string) {
     const token = getAccessTokenFromLocalStorage();
+    const apiKey = getApiKeyFromLocalStorage();
     if (!token) throw new Error('Missing token');
+    if (!apiKey) throw new Error('Missing API key');
 
     const res = await fetch(`${SOCIAL_URL}/profiles/${name}/follow`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': apiKey,
         },
     });
 
@@ -25,14 +28,16 @@ export async function followProfile(name: string) {
 
 export async function unfollowProfile(name: string) {
     const token = getAccessTokenFromLocalStorage();
+    const apiKey = getApiKeyFromLocalStorage();
     if (!token) throw new Error('Missing token');
+    if (!apiKey) throw new Error('Missing API key');
 
     const res = await fetch(`${SOCIAL_URL}/profiles/${name}/unfollow`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': apiKey,
         },
     });
 
@@ -45,13 +50,15 @@ export async function unfollowProfile(name: string) {
 
 export async function getProfileWithFollowing(name: string) {
     const token = getAccessTokenFromLocalStorage();
+    const apiKey = getApiKeyFromLocalStorage();
     if (!token) throw new Error('Missing token');
+    if (!apiKey) throw new Error('Missing API key');
 
     const res = await fetch(`${SOCIAL_URL}/profiles/${name}?_following=true`, {
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': apiKey,
         },
     });
 

@@ -1,8 +1,8 @@
-import { getAccessTokenFromLocalStorage } from '../storage';
+import {
+    getAccessTokenFromLocalStorage,
+    getApiKeyFromLocalStorage,
+} from '../storage';
 import { SOCIAL_URL } from './config';
-
-// Remember! move API key to localStorage before deployment
-const STATIC_API_KEY = 'e2a86d95-9023-4b1c-8677-8337058737d2';
 
 type Media = { url: string; alt?: string };
 
@@ -19,6 +19,8 @@ export type Post = {
         avatar?: string | null;
     };
 };
+
+const API_KEY = getApiKeyFromLocalStorage();
 
 /**
  * Creates a new post on the Noroff API.
@@ -43,7 +45,7 @@ export async function createNewPost(
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': API_KEY || '',
         },
         body: JSON.stringify({
             title,
@@ -69,7 +71,7 @@ export async function getAllPosts(token: string) {
         {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'X-Noroff-API-Key': STATIC_API_KEY,
+                'X-Noroff-API-Key': API_KEY || '',
             },
         }
     );
@@ -88,7 +90,7 @@ export async function getPostById(id: string, token: string): Promise<Post> {
         {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'X-Noroff-API-Key': STATIC_API_KEY,
+                'X-Noroff-API-Key': API_KEY || '',
             },
         }
     );
@@ -113,7 +115,7 @@ export async function getPostsByProfile(name: string) {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
-                'X-Noroff-API-Key': STATIC_API_KEY,
+                'X-Noroff-API-Key': API_KEY || '',
             },
         }
     );
@@ -137,7 +139,7 @@ export async function deleteUserPost(id: string, token: string) {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${token}`,
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': API_KEY || '',
         },
     });
 
@@ -167,7 +169,7 @@ export async function updateUserPost(
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
-            'X-Noroff-API-Key': STATIC_API_KEY,
+            'X-Noroff-API-Key': API_KEY || '',
         },
         body: JSON.stringify({
             title,
@@ -191,11 +193,13 @@ export async function updateUserPost(
 
 export async function searchPosts(query: string, token: string) {
     const res = await fetch(
-        `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(query)}&_author=true`,
+        `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(
+            query
+        )}&_author=true`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'X-Noroff-API-Key': STATIC_API_KEY,
+                'X-Noroff-API-Key': API_KEY || '',
             },
         }
     );

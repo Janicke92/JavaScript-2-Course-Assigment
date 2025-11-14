@@ -23,6 +23,7 @@ form?.addEventListener('submit', async (event) => {
             email: data.email,
             name: data.name,
         });
+        localStorage.setItem('apiKey', 'e2a86d95-9023-4b1c-8677-8337058737d2');
         window.location.href = '../../feed.html';
     } catch (err) {
         // Remember! Add later!
