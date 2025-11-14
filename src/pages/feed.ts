@@ -1,7 +1,10 @@
-import { createNewPost } from '../api/postsService';
+import {
+    createNewPost,
+    getAllPosts,
+    searchPosts,
+    type Post,
+} from '../api/postsService';
 import { getAccessTokenFromLocalStorage } from '../storage';
-import { getAllPosts } from '../api/postsService';
-import type { Post } from '../api/postsService';
 import { PostCard } from '../components/PostCard';
 
 const storedUserData = localStorage.getItem('petpalace_auth');
@@ -11,6 +14,9 @@ if (!storedUserData) {
 
 const createPostForm =
     document.querySelector<HTMLFormElement>('#create-post-form');
+const searchForm = document.querySelector<HTMLFormElement>('#search-form');
+const searchInput = document.querySelector<HTMLInputElement>('#search-input');
+const feed = document.querySelector<HTMLElement>('#feed');
 
 createPostForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -46,7 +52,6 @@ createPostForm?.addEventListener('submit', async (e) => {
 });
 
 async function renderPostsFeed() {
-    const feed = document.querySelector<HTMLElement>('#feed');
     if (!feed) return;
 
     const token = getAccessTokenFromLocalStorage();
@@ -59,7 +64,6 @@ async function renderPostsFeed() {
 
     try {
         const posts = await getAllPosts(token);
-
         feed.innerHTML = posts.map((p: Post) => PostCard(p)).join('');
     } catch (error) {
         console.error(error);
@@ -68,3 +72,40 @@ async function renderPostsFeed() {
 }
 
 renderPostsFeed();
+
+async function handleSearch(event: SubmitEvent) {
+    event.preventDefault();
+
+    if (!searchInput || !feed) return;
+
+    const query = searchInput.value.trim();
+    const token = getAccessTokenFromLocalStorage();
+
+    if (!token) {
+        window.location.href = '/login.html';
+        return;
+    }
+
+    if (!query) {
+        await renderPostsFeed();
+        return;
+    }
+
+    try {
+        const posts = await searchPosts(query, token);
+
+        if (!posts.length) {
+            feed.innerHTML = `<p>No posts found for "${query}".</p>`;
+            return;
+        }
+
+        feed.innerHTML = posts.map((p: any) => PostCard(p)).join('');
+    } catch (error) {
+        console.error(error);
+        feed.innerHTML = `<p>Could not search posts.</p>`;
+    }
+}
+
+if (searchForm) {
+    searchForm.addEventListener('submit', handleSearch);
+}

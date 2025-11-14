@@ -21,6 +21,15 @@ if (!postId) {
     throw new Error('Missing post id in URL');
 }
 
+/**
+ * Loads and renders a single post on the single post page.
+ * Fetches the post data from the API using the post ID from the URL.
+ * Updates the DOM with title, image, body, author and timestamp.
+ * Shows edit and delete buttons only if the post belongs to the logged in user.
+ * @async
+ * @returns {Promise<void>} Resolves when the post has been rendered.
+ * @throws {Error} If fetching the post fails.
+ */
 async function renderSinglePost() {
     if (!postContainer || !titleElement) return;
 

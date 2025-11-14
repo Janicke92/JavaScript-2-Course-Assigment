@@ -188,3 +188,27 @@ export async function updateUserPost(
 
     return json.data;
 }
+
+export async function searchPosts(query: string, token: string) {
+    const res = await fetch(
+        `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(query)}&_author=true`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'X-Noroff-API-Key': STATIC_API_KEY,
+            },
+        }
+    );
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+        const msg =
+            json?.errors?.[0]?.message ||
+            json?.message ||
+            `Search failed: ${res.status}`;
+        throw new Error(msg);
+    }
+
+    return json.data;
+}
