@@ -48,7 +48,14 @@ async function renderSinglePost() {
                     : ''
             }
             ${post.body ? `<p>${post.body}</p>` : '<p>No content.</p>'}
-            <p><strong>By:</strong> ${post.author?.name || 'Anonymous'}</p>
+                <p>
+                    <strong>By:</strong>
+                    ${
+                        post.author?.name
+                            ? `<a href="profile.html?name=${post.author.name}">${post.author.name}</a>`
+                            : 'Anonymous'
+                    }
+                </p>
             ${
                 createdText
                     ? `<p><strong>Posted:</strong> ${createdText}</p>`
