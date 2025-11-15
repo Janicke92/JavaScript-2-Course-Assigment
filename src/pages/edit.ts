@@ -1,5 +1,6 @@
 import { getAccessTokenFromLocalStorage } from '../storage';
 import { getPostById, updateUserPost } from '../api/postsService';
+import { initLogoutButton } from '../utils/logout';
 
 const params = new URLSearchParams(window.location.search);
 const postId = params.get('id');
@@ -61,3 +62,5 @@ if (form) {
         }
     });
 }
+
+initLogoutButton();

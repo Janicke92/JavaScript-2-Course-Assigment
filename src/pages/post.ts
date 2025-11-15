@@ -3,6 +3,7 @@ import {
     getAccessTokenFromLocalStorage,
     getUserFromLocalStorage,
 } from '../storage';
+import { initLogoutButton } from '../utils/logout';
 
 const params = new URLSearchParams(window.location.search);
 const postId = params.get('id');
@@ -122,3 +123,5 @@ if (editBtn && postId) {
 }
 
 renderSinglePost();
+
+initLogoutButton();

@@ -41,3 +41,8 @@ export function getUserFromLocalStorage(): AuthData | null {
         return null;
     }
 }
+
+export function logoutUser() {
+    localStorage.removeItem('petpalace_auth');
+    localStorage.removeItem('apiKey');
+}

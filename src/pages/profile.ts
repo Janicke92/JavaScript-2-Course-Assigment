@@ -9,6 +9,7 @@ import {
     unfollowProfile,
     getProfileWithFollowing,
 } from '../api/profileService';
+import { initLogoutButton } from '../utils/logout';
 
 const token = getAccessTokenFromLocalStorage();
 if (!token) {
@@ -144,3 +145,5 @@ async function initFollowButton() {
         }
     });
 }
+
+initLogoutButton();

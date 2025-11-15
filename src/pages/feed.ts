@@ -6,6 +6,7 @@ import {
 } from '../api/postsService';
 import { getAccessTokenFromLocalStorage } from '../storage';
 import { PostCard } from '../components/PostCard';
+import { initLogoutButton } from '../utils/logout';
 
 const storedUserData = localStorage.getItem('petpalace_auth');
 if (!storedUserData) {
@@ -109,3 +110,5 @@ async function handleSearch(event: SubmitEvent) {
 if (searchForm) {
     searchForm.addEventListener('submit', handleSearch);
 }
+
+initLogoutButton();
