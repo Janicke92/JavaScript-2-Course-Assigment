@@ -22,6 +22,12 @@ const feed = document.querySelector<HTMLElement>('#feed');
 createPostForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const errorElement = document.querySelector<HTMLElement>('#post-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        errorElement.textContent = '';
+    }
+
     const title = document
         .querySelector<HTMLInputElement>('#title')
         ?.value.trim();
@@ -32,11 +38,6 @@ createPostForm?.addEventListener('submit', async (e) => {
         .querySelector<HTMLInputElement>('#mediaUrl')
         ?.value.trim();
 
-    if (!title || !mediaUrl || !body) {
-        // Remember! Show validation message
-        return;
-    }
-
     const token = getAccessTokenFromLocalStorage();
     if (!token) {
         window.location.href = 'login.html';
@@ -44,10 +45,15 @@ createPostForm?.addEventListener('submit', async (e) => {
     }
 
     try {
-        await createNewPost(title, body, mediaUrl, token);
+        await createNewPost(title || '', body || '', mediaUrl || '', token);
         createPostForm?.reset();
-        // Remember! render post feed;
-    } catch (err) {
+        renderPostsFeed();
+    } catch (err: any) {
+        if (errorElement) {
+            errorElement.textContent =
+                err?.message || 'Could not create post. Please try again.';
+            errorElement.style.display = 'block';
+        }
         console.error('Error creating post:', err);
     }
 });

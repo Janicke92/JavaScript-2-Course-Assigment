@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <meta name="description" content="Edit your post on Pet Palace!" />
+        <link rel="stylesheet" href="/src/style.css" />
+        <title>Edit| Pet Palace</title>
     </head>
     <body>
         <header>
@@ -14,25 +16,14 @@
         <main>
             <h1>Edit post</h1>
             <form id="edit-post-form">
-                <div>
-                    <label for="title">Title</label>
-                    <input id="title" name="title" type="text" required />
-                </div>
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" required />
 
-                <div>
-                    <label for="mediaUrl">Image URL</label>
-                    <input id="mediaUrl" name="mediaUrl" type="url" required />
-                </div>
+                <label for="mediaUrl">Image URL</label>
+                <input id="mediaUrl" name="mediaUrl" type="url" required />
 
-                <div>
-                    <label for="body">Body</label>
-                    <textarea
-                        id="body"
-                        name="body"
-                        rows="4"
-                        required
-                    ></textarea>
-                </div>
+                <label for="body">Body</label>
+                <textarea id="body" name="body" rows="4" required></textarea>
 
                 <button type="submit">Edit post</button>
             </form>

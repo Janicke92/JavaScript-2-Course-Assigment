@@ -3,64 +3,55 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <meta name="description" content="Feed page for Pet Palace!" />
+        <link rel="stylesheet" href="/src/style.css" />
+        <title>Login | Pet Palace</title>
     </head>
     <body>
         <header>
             <a href="/profile.html">Profile</a>
             <button id="logout-btn">Logout</button>
         </header>
-        <main>
-            <h1>Pet Palace</h1>
-            <h2>Feed</h2>
-            <p id="welcome"></p>
-            <form id="create-post-form">
+        <main id="feed-main">
+            <div><h1>Pet Palace</h1></div>
+            <p id="post-error" style="color: red; display: none"></p>
+            <div class="form-wrapper">
                 <div>
-                    <label for="title">Title</label>
-                    <input
-                        id="title"
-                        name="title"
-                        type="text"
-                        placeholder="Post title"
-                        required
-                    />
+                    <form id="create-post-form">
+                        <label for="title">Title</label>
+                        <input id="title" name="title" type="text" required />
+
+                        <label for="mediaUrl">Image URL</label>
+                        <input
+                            id="mediaUrl"
+                            name="mediaUrl"
+                            type="url"
+                            required
+                        />
+
+                        <label for="body">Post</label>
+                        <textarea
+                            id="body"
+                            name="body"
+                            rows="4"
+                            required
+                        ></textarea>
+                        <button type="submit">Create post</button>
+                    </form>
                 </div>
 
                 <div>
-                    <label for="mediaUrl">Image URL</label>
-                    <input
-                        id="mediaUrl"
-                        name="mediaUrl"
-                        type="url"
-                        placeholder="https://..."
-                        required
-                    />
+                    <form id="search-form">
+                        <label for="search-input">Search posts</label>
+                        <input id="search-input" name="q" type="search" />
+                        <button type="submit">Search</button>
+                    </form>
                 </div>
+            </div>
 
-                <div>
-                    <label for="body">Post</label>
-                    <textarea
-                        id="body"
-                        name="body"
-                        rows="4"
-                        required
-                    ></textarea>
-                    <button type="submit">Create post</button>
-                </div>
-            </form>
-            <section>
-                <form id="search-form">
-                    <label for="search-input">Search posts</label>
-                    <input
-                        id="search-input"
-                        name="q"
-                        type="search"
-                        placeholder="Search posts"
-                    />
-                    <button type="submit">Search</button>
-                </form>
-            </section>
-
+            <div>
+                <h2 id="feed-header">Feed</h2>
+            </div>
             <section id="feed"></section>
         </main>
 

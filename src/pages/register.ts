@@ -5,11 +5,22 @@ const form = document.querySelector<HTMLFormElement>('#register-form')!;
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const errorElement = document.querySelector<HTMLElement>('#register-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        errorElement.textContent = '';
+    }
+
     const fd = new FormData(form);
 
     const password = String(fd.get('password') ?? '');
     if (password.length < 8) {
-        return; // Remember! Add later
+        if (errorElement) {
+            errorElement.textContent =
+                'Password must be at least 8 characters long.';
+            errorElement.style.display = 'block';
+        }
+        return;
     }
 
     const name = String(fd.get('name') ?? '');
@@ -27,7 +38,11 @@ form.addEventListener('submit', async (e) => {
         });
 
         window.location.href = 'login.html';
-    } catch (err) {
-        // Remember! Add later
+    } catch (err: any) {
+        if (errorElement) {
+            errorElement.textContent =
+                err?.message || 'Could not register user. Please try again.';
+            errorElement.style.display = 'block';
+        }
     }
 });
