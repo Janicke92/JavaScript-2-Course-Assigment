@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+body {
+    color: $primary;
+    background-color: $body-bg;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+header {
+    background-color: $secondary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    font-size: larger;
+    text-decoration: none;
+    margin-right: 1.5rem;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+h1 {
+    font-weight: 600;
+}

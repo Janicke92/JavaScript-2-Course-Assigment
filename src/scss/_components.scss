@@ -1,0 +1,39 @@
+@use 'variables' as *;
+
+.btn-logout {
+    background-color: $primary;
+    font-size: larger;
+    margin-right: 1.5rem;
+    color: $secondary;
+
+    &:hover {
+        border-color: $primary;
+    }
+}
+
+.post {
+    border-bottom: 1px solid $secondary;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    max-width: 700px;
+}
+
+.post a {
+    text-decoration: none;
+}
+
+.post-media img {
+    width: 100%;
+    height: auto;
+    max-height: 550px;
+    display: block;
+    object-fit: contain;
+    background-color: #7b564e;
+    border-radius: 25px;
+}
+
+.post h3,
+.post p,
+.post a {
+    word-break: break-word;
+}
