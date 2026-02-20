@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'sass:color';
 
 .btn-logout {
     background-color: $primary;
@@ -11,11 +12,40 @@
     }
 }
 
+.navbar-toggler {
+    border-color: $primary;
+}
+
+.navbar-toggler-icon-custom {
+    color: $primary;
+    font-size: larger;
+}
+
 .post {
+    border: none;
     border-bottom: 1px solid $secondary;
+    border-radius: 0%;
+    background-color: $body-bg;
     padding-bottom: 1rem;
     margin-top: 1rem;
     max-width: 700px;
+}
+
+.card {
+    border: none;
+    background-color: $body-bg;
+
+    &:hover {
+        background-color: $surface-alt;
+    }
+}
+
+.card h3 {
+    font-size: xx-large;
+}
+
+.card p {
+    margin-top: 1rem;
 }
 
 .post a {
@@ -28,12 +58,6 @@
     max-height: 550px;
     display: block;
     object-fit: contain;
-    background-color: #7b564e;
-    border-radius: 25px;
-}
-
-.post h3,
-.post p,
-.post a {
-    word-break: break-word;
+    background-color: $tertiary;
+    border-radius: 15px;
 }

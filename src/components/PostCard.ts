@@ -8,13 +8,14 @@ import type { Post } from '../api/postsService';
 export function PostCard(post: Post): string {
     return `
     <article class="post">
-        ${
-            post.title
-                ? `<div class="post-header">
+        <div class= "card"> 
+            ${
+                post.title
+                    ? `<div class="post-header">
                     <h3><a href="post.html?id=${post.id}">${post.title}</a></h3>
                 </div>`
-                : ''
-        }
+                    : ''
+            }
 
         ${
             post.media?.url
@@ -34,8 +35,9 @@ export function PostCard(post: Post): string {
                 : ''
         }
 
-        <div class="post-footer">
-            <small>By ${post.author?.name || 'Anonymous'}</small>
+            <div class="post-footer">
+                <small>By ${post.author?.name || 'Anonymous'}</small>
+            </div>
         </div>
     </article>
     `;

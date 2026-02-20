@@ -7,54 +7,91 @@
         <link rel="stylesheet" href="/src/scss/main.scss" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
-            rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
         <title>Feed | Pet Palace</title>
     </head>
     <body>
         <header>
-            <div class="m-3">
-                <h1>Pet Palace</h1>
-            </div>
-            <div class="m-3">
-                <a href="/profile.html">Profile</a>
-                <button id="logout-btn" class="btn btn-logout">Logout</button>
-            </div>
+            <nav class="navbar navbar-expand-sm">
+                <div class="container">
+                    <h1>Pet Palace</h1>
+
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <i class="bi bi-list navbar-toggler-icon-custom"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <div class="ms-auto d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3">
+                            <a class="nav-link" href="/profile.html">Profile</a>
+                            <button id="logout-btn" class="btn btn-logout">Logout</button>
+                        </div>
+                        <form id="search-form-mobile" class="d-sm-none mt-3">
+                            <label for="search-input-mobile" class="visually-hidden">Search posts</label>
+                            <input
+                                id="search-input-mobile"
+                                class="form-control mb-2"
+                                name="q"
+                                type="search"
+                                placeholder="Search posts..."
+                            />
+                            <button type="submit" class="btn btn-outline-primary w-100"><i class="bi bi-search me-2"></i>Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
         </header>
-        <main id="feed-main">
+        <main id="feed-main" class="container py-4">
             <p id="post-error" style="color: red; display: none"></p>
-            <div>
-                <div>
-                    <form id="create-post-form">
-                        <label for="title" class="form-label">Title</label>
-                        <input id="title" class="form-control" name="title" type="text" required />
 
-                        <label for="mediaUrl" class="form-label">Image URL</label>
-                        <input id="mediaUrl" class="form-control" name="mediaUrl" type="url" required />
+            <div class="row g-4 align-items-start">
+                <div class="col-12 col-lg-3 sticky-lg-top sidebar-sticky">
+                    <div class="sticky-sidebar">
+                        <form id="search-form" class="d-none d-sm-block">
+                            <label for="search-input" class="visually-hidden">Search posts</label>
 
-                        <label for="body" class="form-label">Post</label>
-                        <textarea id="body" class="form-control" name="body" rows="4" required></textarea>
-                        <button type="submit" class="btn btn-secondary mt-4">Create post</button>
-                    </form>
+                            <div class="input-group">
+                                <input id="search-input" class="form-control" name="q" type="search" />
+                                <button type="submit" class="btn btn-secondary"><i class="bi bi-search me-2"></i>Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div>
-                    <form id="search-form">
-                        <label for="search-input" class="form-label">Search posts</label>
-                        <input id="search-input" class="form-control" name="q" type="search" />
-                        <button type="submit">Search</button>
-                    </form>
+                <div class="col-12 col-lg-3 order-2 order-lg-3 sticky-lg-top sidebar-sticky">
+                    <div>
+                        <form id="create-post-form">
+                            <label for="title" class="form-label">Title</label>
+                            <input id="title" class="form-control" name="title" type="text" required />
+
+                            <label for="mediaUrl" class="form-label mt-3">Image URL</label>
+                            <input id="mediaUrl" class="form-control" name="mediaUrl" type="url" required />
+
+                            <label for="body" class="form-label mt-3">Post</label>
+                            <textarea id="body" class="form-control" name="body" rows="4" required></textarea>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-secondary mt-4">Create post</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 order-3 order-lg-2">
+                    <section id="feed"></section>
                 </div>
             </div>
-
-            <div>
-                <h2 id="feed-header">Feed</h2>
-            </div>
-            <section id="feed"></section>
         </main>
 
+        <script type="module" src="/src/app.ts"></script>
         <script type="module" src="/src/pages/feed.ts"></script>
     </body>
 </html>
