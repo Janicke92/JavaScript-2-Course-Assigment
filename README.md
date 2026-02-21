@@ -1,32 +1,58 @@
-Pet Palace – JavaScript 2 Course Assignment
+# Pet Palace – CSS Frameworks Course Assignment
 
-This project is my submission for the JavaScript 2 Course Assignment at Noroff.
-It is a multipage front-end application built with Vite and TypeScript, using the Noroff Social API for authentication, posts, profiles, and user interactions.
+This project is my submission for the CSS Frameworks Course Assignment (Option 1) at Noroff.
+It is based on my previous JavaScript 2 Course Assignment and has been redesigned and styled using Bootstrap and Sass.
 
-The application allows users to register, log in, create posts, edit and delete their own posts, view profiles, follow/unfollow users, and search among posts.
+The project is a multipage front-end application built with Vite and TypeScript.
 
-Netlify deployment:
-https://69186d7c5c264d000847e2ae--yourpetpalace.netlify.app/
+## Styled Pages
 
-GitHub repository:
-https://github.com/Janicke92/JavaScript-2-Course-Assigment
+register.html (includes HTML validation)
+feed.html
+profile.html
 
-Tech Stack:
+## Tech Stack
+
 Vite (vanilla + TypeScript)
 TypeScript
-HTML (multipage)
-CSS
-Noroff Authentication API
-Noroff Social API
-No front-end frameworks were used (React, Vue, etc.).
+HTML
+Bootstrap
+Sass
 
-To run the project locally:
+### To run the project locally
+
 git clone <your-repo-url>
 cd <your-project-folder>
 npm install
 npm run dev
 
-To create a production build:
+### To create a production build
+
 npm run build
 
-This project is created for educational purposes.
+## AI log
+
+**10.02.2026 – 21.02.2026**
+Tool used: ChatGPT
+Purpose: Making a checklist of “to-dos” and setting reminders.
+Outcome: Help keep track of assignment progress and remember ideas for other parts of the project that I’m not currently working on.
+
+**11.02.2026**
+Tool used: ChatGPT
+Purpose: To find the correct word for “text truncation”.
+Outcome: Could search “text truncation” and find explanation on how to use it. https://getbootstrap.com/docs/5.2/helpers/text-truncation/
+
+**14.02.2026**
+Tool used: ChatGPT
+Purpose: Finding the right term for “overflow-wrap”.
+Outcome: Could search “overflow-wrap” and use it in styling post cards. https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-wrap
+\*\*
+**19.02.2026**
+Tool used: ChatGPT
+Purpose: Finding the right term for “word-break”.
+Outcome: Could search “word-break” and use it in styling post cards. https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/word-break
+
+**20.02.2026**
+Tool used: ChatGPT
+Purpose: Help debugging why “Toast” was not working.
+Outcome: I was not comfortable with ChatGPT response to this problem as it kept wanting to send me code even though I explicitly asked it not to. I turned to Google instead.

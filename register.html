@@ -4,31 +4,39 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Register page for Pet Palace!" />
-        <link rel="stylesheet" href="/src/style.css" />
+        <link rel="stylesheet" href="/src/scss/main.scss" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
         <title>Register | Pet Palace</title>
     </head>
     <body>
-        <main>
-            <h1>Join our pet palace!</h1>
-            <p id="register-error" style="color: red; display: none"></p>
-            <form id="register-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required />
+        <main class="container mx-auto py-5">
+            <div class="container text-center">
+                <h1>Join our pet palace!</h1>
+            </div>
+            <div class="container">
+                <div id="register-error" class="alert alert-danger d-none" role="alert"></div>
+                <form id="register-form" class="register-form">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required minlength="2" />
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required />
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required />
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required minlength="8" />
 
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="3" required></textarea>
+                    <label for="bio" class="form-label">Bio:</label>
+                    <textarea id="bio" class="form-control" name="bio" rows="3" required></textarea>
 
-                <label for="avatar">Avatar URL:</label>
-                <input id="avatar" name="avatar" type="url" required />
-
-                <button type="submit">Register</button>
-            </form>
+                    <label for="avatar" class="form-label">Avatar URL:</label>
+                    <input id="avatar" class="form-control" name="avatar" type="url" required />
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-secondary mt-4">Register</button>
+                    </div>
+                </form>
+            </div>
         </main>
 
         <script type="module" src="/src/pages/register.ts"></script>

@@ -1,0 +1,63 @@
+@use 'variables' as *;
+
+body {
+    color: $primary;
+    background-color: $body-bg;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+header {
+    background-color: $secondary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: larger;
+    text-decoration: none;
+    margin-right: 1.5rem;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.navbar {
+    width: 100%;
+}
+
+main {
+    margin-top: 3rem;
+}
+
+h1 {
+    font-weight: 600;
+}
+
+.form-control {
+    border-color: $surface-alt;
+}
+
+.register-form {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+// .avatar-image {
+//     border-radius: 50%;
+// }
+
+.avatar-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@media (min-width: 992px) {
+    .sidebar-sticky {
+        top: 1.5rem;
+    }
+}

@@ -7,7 +7,7 @@ form.addEventListener('submit', async (e) => {
 
     const errorElement = document.querySelector<HTMLElement>('#register-error');
     if (errorElement) {
-        errorElement.style.display = 'none';
+        errorElement.classList.add('d-none');
         errorElement.textContent = '';
     }
 
@@ -18,7 +18,7 @@ form.addEventListener('submit', async (e) => {
         if (errorElement) {
             errorElement.textContent =
                 'Password must be at least 8 characters long.';
-            errorElement.style.display = 'block';
+            errorElement.classList.remove('d-none');
         }
         return;
     }
@@ -42,7 +42,7 @@ form.addEventListener('submit', async (e) => {
         if (errorElement) {
             errorElement.textContent =
                 err?.message || 'Could not register user. Please try again.';
-            errorElement.style.display = 'block';
+            errorElement.classList.remove('d-none');
         }
     }
 });

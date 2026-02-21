@@ -1,0 +1,63 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+.btn-logout {
+    background-color: $primary;
+    font-size: larger;
+    margin-right: 1.5rem;
+    color: $secondary;
+
+    &:hover {
+        border-color: $primary;
+    }
+}
+
+.navbar-toggler {
+    border-color: $primary;
+}
+
+.navbar-toggler-icon-custom {
+    color: $primary;
+    font-size: larger;
+}
+
+.post {
+    border: none;
+    border-bottom: 1px solid $secondary;
+    border-radius: 0%;
+    background-color: $body-bg;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    max-width: 700px;
+}
+
+.card {
+    border: none;
+    background-color: $body-bg;
+
+    &:hover {
+        background-color: $surface-alt;
+    }
+}
+
+.card h3 {
+    font-size: xx-large;
+}
+
+.card p {
+    margin-top: 1rem;
+}
+
+.post a {
+    text-decoration: none;
+}
+
+.post-media img {
+    width: 100%;
+    height: auto;
+    max-height: 550px;
+    display: block;
+    object-fit: contain;
+    background-color: $tertiary;
+    border-radius: 15px;
+}
