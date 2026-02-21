@@ -5,5 +5,7 @@
     $secondary: $secondary
 );
 
+@use 'bootstrap-icons/font/bootstrap-icons.css';
+
 @use 'layout';
 @use 'components';
