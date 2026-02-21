@@ -39,6 +39,23 @@ h1 {
     border-color: $surface-alt;
 }
 
+.register-form {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+// .avatar-image {
+//     border-radius: 50%;
+// }
+
+.avatar-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 @media (min-width: 992px) {
     .sidebar-sticky {
         top: 1.5rem;

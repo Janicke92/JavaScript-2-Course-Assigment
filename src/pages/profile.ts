@@ -1,14 +1,7 @@
-import {
-    getAccessTokenFromLocalStorage,
-    getUserFromLocalStorage,
-} from '../storage';
+import { getAccessTokenFromLocalStorage, getUserFromLocalStorage } from '../storage';
 import { getPostsByProfile } from '../api/postsService';
 import { PostCard } from '../components/PostCard';
-import {
-    followProfile,
-    unfollowProfile,
-    getProfileWithFollowing,
-} from '../api/profileService';
+import { followProfile, unfollowProfile, getProfileWithFollowing } from '../api/profileService';
 import { initLogoutButton } from '../utils/logout';
 
 const token = getAccessTokenFromLocalStorage();
@@ -21,9 +14,7 @@ const user = getUserFromLocalStorage();
 const params = new URLSearchParams(window.location.search);
 const nameFromUrl = params.get('name');
 
-const loggedInDisplayName = user
-    ? (user.name ?? user.email.split('@')[0])
-    : null;
+const loggedInDisplayName = user ? (user.name ?? user.email.split('@')[0]) : null;
 
 const profileNameToShow: string = nameFromUrl || loggedInDisplayName || '';
 
@@ -33,11 +24,12 @@ if (!profileNameToShow) {
 }
 
 const titleElement = document.querySelector<HTMLElement>('#profile-title');
-const usernameElement =
-    document.querySelector<HTMLElement>('#profile-username');
+const usernameElement = document.querySelector<HTMLElement>('#profile-username');
 const emailElement = document.querySelector<HTMLElement>('#profile-email');
 const postsContainer = document.querySelector<HTMLElement>('#profile-posts');
 const followBtn = document.querySelector<HTMLButtonElement>('#follow-btn');
+const avatarElement = document.querySelector<HTMLImageElement>('#profile-avatar');
+const bioElement = document.querySelector<HTMLElement>('#profile-bio');
 
 if (titleElement) {
     if (loggedInDisplayName && profileNameToShow === loggedInDisplayName) {
@@ -52,11 +44,7 @@ if (usernameElement) {
 }
 
 if (emailElement) {
-    if (
-        user &&
-        loggedInDisplayName &&
-        profileNameToShow === loggedInDisplayName
-    ) {
+    if (user && loggedInDisplayName && profileNameToShow === loggedInDisplayName) {
         emailElement.textContent = user.email;
     } else {
         emailElement.textContent = '';
@@ -87,12 +75,38 @@ async function loadProfilePosts(profileName: string) {
     }
 }
 
-if (
-    followBtn &&
-    user &&
-    loggedInDisplayName &&
-    profileNameToShow !== loggedInDisplayName
-) {
+async function loadProfileInfo(profileName: string) {
+    try {
+        const profile = await getProfileWithFollowing(profileName);
+
+        if (avatarElement) {
+            const url = profile?.avatar?.url;
+            const alt = profile?.avatar?.alt || `${profile.name}'s avatar`;
+
+            if (url) {
+                avatarElement.src = url;
+                avatarElement.alt = alt;
+                avatarElement.style.display = '';
+            } else {
+                avatarElement.style.display = 'none';
+            }
+        }
+
+        if (bioElement) {
+            bioElement.textContent = profile?.bio?.trim() ? profile.bio : '';
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+loadProfileInfo(profileNameToShow);
+
+if (postsContainer) {
+    loadProfilePosts(profileNameToShow);
+}
+
+if (followBtn && user && loggedInDisplayName && profileNameToShow !== loggedInDisplayName) {
     initFollowButton();
 } else if (followBtn) {
     followBtn.style.display = 'none';
@@ -110,10 +124,7 @@ async function initFollowButton() {
     try {
         const me = await getProfileWithFollowing(loggedInDisplayName);
 
-        isFollowing =
-            me.following?.some(
-                (profile: any) => profile.name === profileNameToShow
-            ) ?? false;
+        isFollowing = me.following?.some((profile: any) => profile.name === profileNameToShow) ?? false;
     } catch (error) {
         console.error(error);
     }

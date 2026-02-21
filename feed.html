@@ -50,8 +50,6 @@
             </nav>
         </header>
         <main id="feed-main" class="container py-4">
-            <p id="post-error" style="color: red; display: none"></p>
-
             <div class="row g-4 align-items-start">
                 <div class="col-12 col-lg-3 sticky-lg-top sidebar-sticky">
                     <div class="sticky-sidebar">
@@ -67,7 +65,15 @@
                 </div>
 
                 <div class="col-12 col-lg-3 order-2 order-lg-3 sticky-lg-top sidebar-sticky">
-                    <div>
+                    <button
+                        class="btn btn-secondary d-lg-none mb-3"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#createPostCollapse"
+                    >
+                        Write a post
+                    </button>
+                    <div class="collapse d-lg-block" id="createPostCollapse">
                         <form id="create-post-form">
                             <label for="title" class="form-label">Title</label>
                             <input id="title" class="form-control" name="title" type="text" required />
@@ -77,6 +83,7 @@
 
                             <label for="body" class="form-label mt-3">Post</label>
                             <textarea id="body" class="form-control" name="body" rows="4" required></textarea>
+                            <p id="post-error" style="color: red; display: none"></p>
 
                             <div class="text-center">
                                 <button type="submit" class="btn btn-secondary mt-4">Create post</button>
